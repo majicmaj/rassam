@@ -135,7 +135,10 @@ const Canvas = (props) => {
               <i className="fas fa-caret-up" />
             </button>
             <div id="glass" className="glassy">
-              <button className="button" onClick={saveFile}>
+              <button
+                className="button"
+                onClick={() => confirm("Save File?") && saveFile()}
+              >
                 <i className="fas fa-save" />
               </button>
               <button className="button" onClick={clear}>
