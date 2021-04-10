@@ -1,0 +1,15 @@
+.open {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1rem;
+}
+.drawing {
+  border: 1px solid #00000040;
+  width: 200px;
+  height: 200px;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
