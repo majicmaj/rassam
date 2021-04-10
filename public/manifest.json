@@ -1,6 +1,7 @@
 {
   "name": "Rassam",
   "short_name": "Rassam",
+  "start-url": ".",
   "icons": [
     {
       "src": "/android-chrome-192x192.png",
