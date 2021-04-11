@@ -55,6 +55,8 @@ const Canvas = (props) => {
   };
 
   const draw = ({ nativeEvent }, override = false) => {
+    nativeEvent.preventDefault();
+    nativeEvent.stopPropagation();
     if (!drawing && !override) {
       return;
     }
