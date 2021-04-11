@@ -1,42 +1,50 @@
+import { getCacheKeyForURL } from "workbox-precaching";
+import { registerRoute } from "workbox-routing";
+
 export default function register() {
   // Register the service worker
   if (process.env.NODE_ENV === "production" && "serviceWorker" in navigator) {
     window.addEventListener("load", () => {
-      const swUrl = "service-worker.js";
       navigator.serviceWorker
-        .register(swUrl)
-        .then((registration) => {
-          registration.onupdatefound = () => {
-            const installingWorker = registration.installing;
-            installingWorker.onstatechange = () => {
-              if (installingWorker.state === "installed") {
-                if (navigator.serviceWorker.controller) {
-                  // At this point, the old content will have been purged and
-                  // the fresh content will have been added to the cache.
-                  // It's the perfect time to display a "New content is
-                  // available; please refresh." message in your web app.
-                  console.log("New content is available; please refresh.");
-                } else {
-                  // At this point, everything has been precached.
-                  // It's the perfect time to display a
-                  // "Content is cached for offline use." message.
-                  console.log("Content is cached for offline use.");
-                }
+        .register("/service-worker.js")
+        .then((registartion) => {
+          if (navigator.serviceWorker.conotroller) {
+            window["serviceWorkerReady"] = true;
+            window.dispatchEvent(new CustomEvent("service-worker-ready"));
+          }
+
+          const newWorker = registartion.installing;
+          const waitingWorker = registartion.waiting;
+
+          if (newWorker) {
+            if (newWorker.state === "activated" && !waitingWorker) {
+              window.location.reload();
+            }
+            newWorker.addEventListener("statechange", (e) => {
+              if (newWorker.state === "activated" && !waitingWorker) {
+                window.location.reload();
               }
-            };
-          };
+            });
+          }
         })
-        .catch((error) => {
-          console.error("Error during service worker registration:", error);
+        .catch((err) => {
+          console.log("service worker could not be registered", err);
         });
     });
-  }
-}
 
-export function unregister() {
-  if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.ready.then((registration) => {
-      registration.unregister();
-    });
+    registerRoute(
+      ({ event }) => event.request.mode === "navigate",
+      async () => {
+        const defaultBase = "/index.html";
+        return caches
+          .match(getCacheKeyForURL(defaultBase))
+          .then((response) => {
+            return response || fetch(defaultBase);
+          })
+          .catch((err) => {
+            return fetch(defaultBase);
+          });
+      }
+    );
   }
 }
