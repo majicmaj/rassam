@@ -1,5 +1,4 @@
 html {
-  max-height: 100vh;
   overflow: hidden;
 }
 * {
@@ -8,6 +7,15 @@ html {
 body {
   margin: 0;
   position: relative;
+  height: 100vh;
+  max-height: 100vh;
+  /* border: 1px solid red; */
+  overflow: hidden;
+  overflow-x: scroll;
+  -webkit-overflow-scrolling: touch;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  scroll-behavior: smooth;
 }
 .App {
   font-family: sans-serif;

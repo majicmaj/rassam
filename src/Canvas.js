@@ -138,7 +138,8 @@ const Canvas = (props) => {
             <div id="glass" className="glassy">
               <button
                 className="button"
-                onClick={() => confirm("Save File?") && saveFile()}
+                // eslint-disable-next-line no-restricted-globals
+                onClick={() => confirm("Save?") && saveFile()}
               >
                 <i className="fas fa-save" />
               </button>
