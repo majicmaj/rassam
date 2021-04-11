@@ -19,7 +19,7 @@
       "type": "image/png",
       "purpose": "any maskable"
     }
-  ],1
+  ],
   "theme_color": "#272727",
   "background_color": "#ffffff",
   "display": "standalone"
