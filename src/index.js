@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import ReactDOM from "react-dom";
-import { register } from "../serviceWorkerRegistration";
+import { register } from "./serviceWorkerRegistration";
 
 import App from "./App";
 
