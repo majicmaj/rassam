@@ -178,7 +178,7 @@ const Canvas = (props) => {
                 <div id="size" style={{ width: size, height: size }} />
               </button>
               <button
-                className="button"
+                className="button last"
                 onClick={() => setShowPicker(!showPicker)}
               >
                 <div id="color" style={{ background: color }} />
