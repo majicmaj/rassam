@@ -28,7 +28,7 @@ body {
   margin: 0;
 }
 .wide {
-  /* margin: 0 0.5rem; */
+  margin: 0 0.8rem;
 }
 .button {
   font-size: 1.4rem;
@@ -44,6 +44,7 @@ body {
   text-decoration: none;
   margin-bottom: 1rem;
 }
+
 .button.last {
   margin: 0;
 }
@@ -118,4 +119,10 @@ body {
 
 .inactive {
   color: #111;
+}
+#upload {
+  opacity: 0;
+  position: absolute;
+  height: 1.5;
+  width: 1.5;
 }

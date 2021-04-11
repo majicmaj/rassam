@@ -29,7 +29,7 @@ const Canvas = (props) => {
     context.imageSmoothingEnabled = true;
     context.imageSmoothingQuality = "high";
     contextRef.current = context;
-  }, [height, width]);
+  }, []);
 
   React.useEffect(() => {
     contextRef.current.strokeStyle = color;
@@ -112,13 +112,19 @@ const Canvas = (props) => {
       saveAs(blob, `rassam-${Date.now()}.png`);
     });
   };
+  const handleUpload = (e) => {
+    const image = new Image();
+    image.onload = () => {
+      contextRef.current.drawImage(image, 0, 0, width / 2, height / 2);
+    };
+    image.src = URL.createObjectURL(e.target.files[0]);
+    save();
+  };
+  React.useEffect(() => {
+    document.getElementById("upload")?.addEventListener("change", handleUpload);
+  }, []);
   return (
     <div>
-      <input
-        type="file"
-        id="upload"
-        style={{ opacity: 0, position: "absolute", top: "100px" }}
-      />
       <canvas
         onMouseDown={start}
         onMouseUp={end}
@@ -136,6 +142,10 @@ const Canvas = (props) => {
               <i className="fas fa-caret-up" />
             </button>
             <div id="glass" className="glassy">
+              <div className="button">
+                <i className="fas fa-folder-open" />
+                <input type="file" id="upload" />
+              </div>
               <button
                 className="button"
                 // eslint-disable-next-line no-restricted-globals
