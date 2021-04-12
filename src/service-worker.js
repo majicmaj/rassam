@@ -11,7 +11,7 @@ import { clientsClaim } from "workbox-core";
 import { ExpirationPlugin } from "workbox-expiration";
 import { precacheAndRoute, createHandlerBoundToURL } from "workbox-precaching";
 import { registerRoute } from "workbox-routing";
-import { StaleWhileRevalidate } from "workbox-strategies";
+import { CacheFirst, StaleWhileRevalidate } from "workbox-strategies";
 
 clientsClaim();
 
@@ -62,6 +62,13 @@ registerRoute(
   })
 );
 
+registerRoute(
+  /^https:\/\/ka-f\.fontawesome\.com/,
+  new CacheFirst({
+    cacheName: "fontawesome-fonts-stylesheets",
+    plugins: [new ExpirationPlugin({ maxEntries: 50 })]
+  })
+);
 // This allows the web app to trigger skipWaiting via
 // registration.waiting.postMessage({type: 'SKIP_WAITING'})
 self.addEventListener("message", (event) => {
