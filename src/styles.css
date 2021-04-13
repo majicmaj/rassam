@@ -101,7 +101,9 @@ body {
 #size {
   border-radius: 100%;
   background: #000;
-  border: 1px solid rgba(255, 255, 255, 0.18);
+  height: 1.4rem;
+  width: 1.4rem;
+  /* border: 2px solid #b2b2b2; */
 }
 
 #picker {

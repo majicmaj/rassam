@@ -6,7 +6,7 @@ const Canvas = (props) => {
   const canvasRef = React.useRef(null);
   const contextRef = React.useRef(null);
   const [color, setColor] = React.useState("#ff1354ff");
-  const [size, setSize] = React.useState(8);
+  const [size, setSize] = React.useState(5);
   const [drawing, setDrawing] = React.useState(false);
   const [showAside, setShowAside] = React.useState(true);
   const [showPicker, setShowPicker] = React.useState(false);
@@ -121,8 +121,18 @@ const Canvas = (props) => {
     save();
   };
   React.useEffect(() => {
-    document.getElementById("upload")?.addEventListener("change", handleUpload);
+    const upload = document.getElementById("upload");
+    upload?.addEventListener("change", handleUpload);
+    // document.addEventListener("keydown", keydown);
   }, []);
+
+  // const keydown = (e) => {
+  //   if (e.ctrlKey && e.code === "Z") {
+  //     undo();
+  //   } else if (e.ctrlKey && e.code === "Y") {
+  //     undo();
+  //   }
+  // };
   return (
     <div>
       <canvas
@@ -156,12 +166,12 @@ const Canvas = (props) => {
               <button className="button" onClick={clear}>
                 <i className="fas fa-trash" />
               </button>
-              <button className="button" onClick={undo}>
+              <button className="button" onClick={undo} title="ctrl + z">
                 <i
                   className={`fas fa-undo ${undoList.length < 1 && "inactive"}`}
                 />
               </button>
-              <button className="button" onClick={redo}>
+              <button className="button" onClick={redo} title="ctrl + y">
                 <i
                   className={`fas fa-redo ${redoList.length < 1 && "inactive"}`}
                 />
@@ -183,9 +193,12 @@ const Canvas = (props) => {
               </button>
               <button
                 className="button"
-                onClick={() => (size < 20 ? setSize(size + 5) : setSize(8))}
+                onClick={() => (size < 18 ? setSize(size * 1.4) : setSize(5))}
               >
-                <div id="size" style={{ width: size, height: size }} />
+                <div
+                  id="size"
+                  style={{ border: `${(25 - size) / 2}px solid #b2b2b2` }}
+                />
               </button>
               <button
                 className="button last"
